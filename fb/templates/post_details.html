@@ -23,7 +23,6 @@
      {% endif %}
     {% endfor %}
   {% endif %}
-  
   <br>
   <a class="btn btn-primary btn-like" href="{% url 'share' post.pk %}">Share</a>
   {% if post.shares.count %}

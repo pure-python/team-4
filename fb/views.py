@@ -234,6 +234,14 @@ def edit_profile_view(request, user):
     }
     return render(request, 'edit_profile.html', context)
 
+@login_required
+def people_view(request, user):
+    profiles = UserProfile.objects.exclude(user__username=user)
+    context = {
+       'profiles': profiles,
+    }      
+    return render(request, 'people.html', context)
+
 
 @login_required
 def like_view(request, pk):
@@ -262,3 +270,4 @@ def share_view_index(request, pk):
     post.shares.add(request.user)
     post.save()
     return redirect(reverse('index'))
+
