@@ -1,6 +1,8 @@
 purepython-project
 ==================
 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/pure-python/team-4?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Course Project for http://purepython.eaudeweb.ro
 
 System prerequisites
