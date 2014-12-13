@@ -145,8 +145,16 @@ def logout_view(request):
 @login_required
 def profile_view(request, user):
     profile = UserProfile.objects.get(user__username=user)
+    albums = UserAlbum.objects.filter(user__username=user)
+    photos = {}
+    for album in albums:
+        aux = AlbumPhoto.objects.filter(album__id = album.id).last()     
+        photos[album.id] = aux
+
     context = {
         'profile': profile,
+        'photos' : photos,
+        'albums' : albums,
     }
     return render(request, 'profile.html', context)
 

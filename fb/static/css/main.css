@@ -8,7 +8,7 @@
 }
 
 .container {
-	max-width: 600px; /* micsoram latimea continutului */
+	max-width: 1200px; /* micsoram latimea continutului */
 }
 
 .navbar-default {
@@ -128,4 +128,32 @@ body {
 }
 .resize{
 	width: 100%;
+}
+
+.media {
+	width:auto;
+}
+.media > img {
+	width:auto;
+	height:200px;
+}
+.reset{
+	margin-top:10px !important;
+	margin-right: 15px;
+}
+.album-form-grup{
+	width:50%;
+	margin-left:auto;
+	margin-right:auto;
+	border: #ccc thin solid;
+	padding: 15px;
+}
+.ajust-button{
+	margin-top: 80px;
+}
+.avatar{
+	width:100%;
+}
+.incadrare{
+	border: #ccc thin solid;
 }
