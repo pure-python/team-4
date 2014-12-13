@@ -25,8 +25,9 @@
       <div class="media-body">
         <h4 class="media-heading">
           <a href="{% url 'post_details' post.pk %}">
-          {{ post.text}}
+            {{ post.text}}
           </a>
+         
           <br>
           {% if post.photo %}
             <img width="100px" src="{{ post.photo.url }}"/>
@@ -34,6 +35,10 @@
         </h4>
         <a href="{% url 'profile' post.author.username %}">
             <b><small>{{ post.author.username }}</small></b></a>
+        on <b><small>{{ post.date_added }}</small></b> <br />
+        
+        <a href="{% url 'edit_post' post.pk %}"> Edit </a>
+
         on <b><small>{{ post.date_added }}</small></b>
         <br><a class="btn btn-primary btn-like" href="{% url 'like_index' post.pk %}">Like</a>
 
@@ -59,6 +64,7 @@
            {% endif %}
           {% endfor %}
         {% endif %}
+
       </div>
     </div>
   {% endfor %}

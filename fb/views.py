@@ -39,6 +39,40 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+@login_required
+def edit_post_view(request, pk):
+    post = UserPost.objects.get(pk=pk)
+    #if not request.user__username == post.user__username:
+    #    return HttpResponseForbidden()
+
+    if request.method == 'GET':
+        data = {
+            'text': post.text
+        }
+        photo = SimpleUploadedFile(
+            post.photo.name, post.photo.file.read()) \
+            if post.photo else None
+        file_data = {'photo': photo}
+        form = UserPostForm(data, file_data)
+
+    elif request.method == 'POST':
+        form = UserPostForm(request.POST, request.FILES)
+        if form.is_valid():           
+            text = form.cleaned_data['text']
+            if form.cleaned_data['text']:
+                post.text = form.cleaned_data['text']
+            if form.cleaned_data['photo']:
+                post.photo = form.cleaned_data['photo']
+
+            post.save()
+            return redirect('/')
+
+    context = {
+        'post': post,
+        'form':form,
+    }
+
+    return render(request, 'edit_post.html', context)
 
 @login_required
 def post_details(request, pk):
@@ -46,6 +80,7 @@ def post_details(request, pk):
 
     if request.method == 'GET':
         form = UserPostCommentForm()
+
     elif request.method == 'POST':
         form = UserPostCommentForm(request.POST)
         if form.is_valid():
@@ -77,9 +112,6 @@ def user_album(request, user):
             album = UserAlbum(name=cleaned_data['name'], description=cleaned_data['description'],
                               user=request.user )
             album.save()
-            # if form.cleaned_data['photo']:
-            #     photo = AlbumPhoto(photo_path=cleaned_data['photo'], album=album, 
-            #         description=cleaned_data['photo_description']
             return redirect('/profile/' + user + '/albums/' + str(album.id) )
     context = {
         'form': form,
@@ -157,9 +189,9 @@ def profile_view(request, user):
         'profile': profile,
         'photos' : photos,
         'albums' : albums,
-        'post_share': post_share,
+        'post_share': post_share,  
     }
-    
+
     return render(request, 'profile.html', context)
 
 
@@ -168,6 +200,7 @@ def edit_profile_view(request, user):
     profile = UserProfile.objects.get(user__username=user)
     if not request.user == profile.user:
         return HttpResponseForbidden()
+
     if request.method == 'GET':
         data = {
             'first_name': profile.user.first_name,
@@ -201,6 +234,14 @@ def edit_profile_view(request, user):
     }
     return render(request, 'edit_profile.html', context)
 
+@login_required
+def people_view(request, user):
+    profiles = UserProfile.objects.exclude(user__username=user)
+    context = {
+       'profiles': profiles,
+    }      
+    return render(request, 'people.html', context)
+
 
 @login_required
 def like_view(request, pk):
@@ -229,3 +270,4 @@ def share_view_index(request, pk):
     post.shares.add(request.user)
     post.save()
     return redirect(reverse('index'))
+
