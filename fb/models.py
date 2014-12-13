@@ -12,6 +12,7 @@ class UserPost(models.Model):
 
     author = models.ForeignKey(User, related_name='posts')
     likers = models.ManyToManyField(User, related_name='liked_posts')
+    shares = models.ManyToManyField(User, related_name = 'shared_posts')
     
     photo = models.ImageField(upload_to='images/', blank=False, null=True)
     
