@@ -23,7 +23,7 @@
     <div id="Albums" class="col-md-6">
       <div class="albums row">
         {% for album in albums %}
-          <a href="#">
+          <a href="{% url 'album_photos' profile.user album.id %}">
           <div class="media reset col-md-4">
           {% for p in photos.values %}
             <img src="{{p.photo_path.url}}">
@@ -36,11 +36,13 @@
       </div>
     </div>
     <div id="Shares" class="col-md-6">
+      <h3>Shares</h3>
       {%for post in post_share %}
       <h4>{{ post.text }}</h4>
        {% if post.photo %}
             <img width="100px" src="{{ post.photo.url }}"/>
        {% endif %}
+       <hr />
   {%endfor%}
     </div>
   </div>

@@ -30,7 +30,7 @@ class UserProfileForm(Form):
     avatar = ImageField(required=False)
 
 class UserAlbumForm(Form):
-    name = CharField(max_length=30, required=True)
+    name = CharField(widget=TextInput(attrs={'class': 'form-control username','placeholder': "Your username"}))
     description = CharField(widget=Textarea(
         attrs={'rows': 3, 'cols': 50, 'class': 'form-control','placeholder': "Describe album..."}))
 
