@@ -5,9 +5,10 @@
  
  {% for profile in profiles %}
 
-  <img width="100px" src="{{ profile.avatar_url }}"/>
-  {{ profile.user.first_name }} {{ profile.user.last_name }}
-
+  	<img width="100px" src="{{ profile.avatar_url }}"/>
+  	{{ profile.user.first_name }} {{ profile.user.last_name }}
+  	<br />
+  	<hr />
   {% endfor %}
 
 {% endblock %}
