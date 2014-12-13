@@ -145,6 +145,7 @@ def logout_view(request):
 @login_required
 def profile_view(request, user):
     profile = UserProfile.objects.get(user__username=user)
+<<<<<<< HEAD
     albums = UserAlbum.objects.filter(user__username=user)
     photos = {}
     for album in albums:
@@ -155,7 +156,17 @@ def profile_view(request, user):
         'profile': profile,
         'photos' : photos,
         'albums' : albums,
+=======
+    
+    post_share = UserPost.objects.filter(shares__username = user)
+    
+    context = {
+        'profile': profile,
+        'post_share': post_share,
+>>>>>>> 96021119b3289cd86494b781cdd358f982be871f
     }
+
+    
     return render(request, 'profile.html', context)
 
 
@@ -204,3 +215,24 @@ def like_view(request, pk):
     post.likers.add(request.user)
     post.save()
     return redirect(reverse('post_details', args=[post.pk]))
+
+@login_required
+def like_view_index(request, pk):
+    post = UserPost.objects.get(pk=pk)
+    post.likers.add(request.user)
+    post.save()
+    return redirect(reverse('index'))
+
+@login_required
+def share_view(request, pk):
+    post = UserPost.objects.get(pk=pk)
+    post.shares.add(request.user)
+    post.save()
+    return redirect(reverse('post_details', args=[post.pk]))
+
+@login_required
+def share_view_index(request, pk):
+    post = UserPost.objects.get(pk=pk)
+    post.shares.add(request.user)
+    post.save()
+    return redirect(reverse('index'))

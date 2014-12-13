@@ -18,6 +18,7 @@
     <a href="{% url 'albums' profile.user.username %}"> Add new album </a>
   {% endif %}
 
+
   <div class="row">
     <div id="Albums" class="col-md-6">
       <div class="albums row">
@@ -35,7 +36,12 @@
       </div>
     </div>
     <div id="Shares" class="col-md-6">
-      
+      {%for post in post_share %}
+      <h4>{{ post.text }}</h4>
+       {% if post.photo %}
+            <img width="100px" src="{{ post.photo.url }}"/>
+       {% endif %}
+  {%endfor%}
     </div>
   </div>
 
