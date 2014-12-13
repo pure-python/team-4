@@ -8,6 +8,8 @@
           {% endif %}
   by <b><small>{{ post.author }}</small></b> on <b><small>{{ post.date_added }}</small></b>
   <br>
+  <a href="{% url 'edit_post' post.id %}"> Edit </a> <br />
+  <hr />
 
   <a class="btn btn-primary btn-like" href="{% url 'like' post.pk %}">Like</a>
   
@@ -21,8 +23,6 @@
      {% endif %}
     {% endfor %}
   {% endif %}
-
-  <hr>
 
   <div class="comments">
   {% for comment in comments %}
