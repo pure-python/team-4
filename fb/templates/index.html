@@ -36,7 +36,35 @@
         <a href="{% url 'profile' post.author.username %}">
             <b><small>{{ post.author.username }}</small></b></a>
         on <b><small>{{ post.date_added }}</small></b> <br />
+        
         <a href="{% url 'edit_post' post.pk %}"> Edit </a>
+
+        on <b><small>{{ post.date_added }}</small></b>
+        <br><a class="btn btn-primary btn-like" href="{% url 'like_index' post.pk %}">Like</a>
+
+        {% if post.likers.count %}
+        Who likes this:
+          {% for liker in post.likers.all %}
+           {{ liker.first_name }}
+           {{ liker.last_name }}
+           {% if not forloop.last %}
+             ,
+           {% endif %}
+          {% endfor %}
+        {% endif %}
+        <br><a class="btn btn-primary btn-like" href="{% url 'share_index' post.pk %}">Share</a>
+              
+        {% if post.shares.count %}
+        Who share this:
+          {% for share in post.shares.all %}
+           {{ share.first_name }}
+           {{ share.last_name }}
+           {% if not forloop.last %}
+             ,
+           {% endif %}
+          {% endfor %}
+        {% endif %}
+
       </div>
     </div>
   {% endfor %}

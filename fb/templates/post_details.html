@@ -24,6 +24,20 @@
     {% endfor %}
   {% endif %}
 
+  <br>
+  <a class="btn btn-primary btn-like" href="{% url 'share' post.pk %}">Share</a>
+  {% if post.shares.count %}
+  Who share this:
+    {% for share in post.shares.all %}
+     {{ share.first_name }}
+     {{ share.last_name }}
+     {% if not forloop.last %}
+       ,
+     {% endif %}
+    {% endfor %}
+  {% endif %}
+  <hr>
+
   <div class="comments">
   {% for comment in comments %}
     <div class="media">
