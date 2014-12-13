@@ -2,32 +2,30 @@
 
 {% block content %}
 
-  <h1>Photo Albums</h1>
-
-  <p>Album: {{ album.name }} </p>
-  <p>Album descripion: {{ album.description }} </p>
+  <h1>{{ album.name }}</h1>
+  <p>{{ album.description }} </p>
   
-  <form enctype="multipart/form-data" class="form-horizontal" method="POST">
+  <form enctype="multipart/form-data" class="form-horizontal album-form-grup" method="POST">
     {% csrf_token %}
     <div class="form-group">
       <div class="col-sm-9">
         {{ form.as_p }} 
       </div>
       <div class="col-sm-3">
-        <button class="btn btn-primary btn-block" type="submit">
+        <button class="btn btn-primary btn-block ajust-button" type="submit">
           Post
         </button>
       </div>
     </div>
   </form>
 
-  <div class="albums">
+  <div class="albums row">
   {% for photo in photos %}
-    <div class="media">
+    <div class="media reset col-md-4">
       {% if photo.photo_path %}
       	<img src="{{ photo.photo_path.url }}">
       {% endif %}
-	  <p> {{ photo.description }} </p>
+	  <p class="photo-desc"> {{ photo.description }} </p>
     </div>
   {% endfor %}
   

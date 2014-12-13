@@ -2,31 +2,45 @@
 
 {% block content %}
   <h1>Profile</h1>
-  <img width="100px" src="{{ profile.avatar_url }}"/>
-  <table>
-    <tr>
-      <td>Name:</td>
-      <td>{{ profile.user.first_name }} {{ profile.user.last_name }}</td>
-    </tr>
-    <tr>
-      <td>Birthday:</td>
-      <td>{{ profile.date_of_birth }}</td>
-    </tr>
-    <tr>
-      <td>Gender:</td>
-      <td>{{ profile.gender }}</td>
-    </tr>
-  </table>
+  <div class="row">
+    <div class="col-md-2">
+      <img class="avatar" src="{{ profile.avatar_url }}"/>
+    </div>
+    <div class="col-md-4 caseta">
+      <h3>{{ profile.user.first_name }} {{ profile.user.last_name }}</h3>
+      <p>Birthday: {{ profile.date_of_birth }}</p>
+      <p>Gender: {{ profile.gender }}</p>
+    </div>
+  </div>
 
   {% if user == profile.user %}
-    <a href="{% url 'edit_profile' profile.user.username %}">Edit</a>
-    <a href="{% url 'albums' profile.user.username %}"> Albums </a>
+    <a href="{% url 'edit_profile' profile.user.username %}">Edit</a> | 
+    <a href="{% url 'albums' profile.user.username %}"> Add new album </a>
   {% endif %}
-  
-  {%for post in post_share %}
+  <div class="row">
+    <div id="Albums" class="col-md-6">
+      <div class="albums row">
+        {% for album in albums %}
+          <a href="#">
+          <div class="media reset col-md-4">
+          {% for p in photos.values %}
+            <img src="{{p.photo_path.url}}">
+          {% endfor %}
+          <h4> {{album.name}}</h4>
+           <p>{{album.description}}</p>
+          </div>
+          </a>
+          {% endfor %}
+      </div>
+    </div>
+    <div id="Shares" class="col-md-6">
+      {%for post in post_share %}
       <h4>{{ post.text }}</h4>
        {% if post.photo %}
             <img width="100px" src="{{ post.photo.url }}"/>
        {% endif %}
   {%endfor%}
+    </div>
+  </div>
+
 {% endblock %}
