@@ -99,3 +99,33 @@ body {
 	max-width: 100%; /* 100% din primul parinte cu width (.media-left) */
 	height: auto; /* scalat proportional */
 }
+
+.panel-title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 16px;
+	color: inherit;
+}
+.panel-default{
+	margin-top:120px;
+	width:500px;
+}
+.align-top{
+	top: 249px;
+}
+.align-top1{
+	top: 318px;
+}
+.input-group-addon{
+	width: 38px;
+	position: absolute;
+	height: 34px;
+}
+
+.username, .password{
+	width: 94%;
+	margin-left: 37px;
+}
+.resize{
+	width: 100%;
+}

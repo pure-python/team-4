@@ -1,6 +1,6 @@
 from django.forms import (
     Form, CharField, Textarea, PasswordInput, ChoiceField, DateField,
-    ImageField,
+    ImageField, TextInput,
 )
 
 from fb.models import UserProfile
@@ -17,8 +17,8 @@ class UserPostCommentForm(Form):
 
 
 class UserLogin(Form):
-    username = CharField(max_length=30)
-    password = CharField(widget=PasswordInput)
+    username = CharField(widget=TextInput(attrs={'class': 'form-control username','placeholder': "Your username"}))
+    password = CharField(widget=PasswordInput(attrs={'class': 'form-control password','placeholder': "Your Password"}))
 
 
 class UserProfileForm(Form):
