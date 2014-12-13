@@ -5,9 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpResponseForbidden
 
-from fb.models import UserPost, UserPostComment, UserProfile
+from fb.models import UserPost, UserPostComment, UserProfile, UserAlbum, AlbumPhoto
 from fb.forms import (
     UserPostForm, UserPostCommentForm, UserLogin, UserProfileForm,
+    UserAlbumForm, PhotosAlbumForm
 )
 
 
@@ -35,6 +36,7 @@ def index(request):
         'posts': posts,
         'form': form,
     }
+
     return render(request, 'index.html', context)
 
 
@@ -63,6 +65,52 @@ def post_details(request, pk):
 
     return render(request, 'post_details.html', context)
 
+@login_required
+def user_album(request, user):
+    albums = UserAlbum.objects.filter(user__username = user)
+    if request.method == 'GET':
+        form = UserAlbumForm()
+    elif request.method == 'POST':
+        form = UserAlbumForm(request.POST)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data;
+            album = UserAlbum(name=cleaned_data['name'], description=cleaned_data['description'],
+                              user=request.user )
+            album.save()
+            # if form.cleaned_data['photo']:
+            #     photo = AlbumPhoto(photo_path=cleaned_data['photo'], album=album, 
+            #         description=cleaned_data['photo_description']
+            return redirect('/profile/' + user + '/albums/' + str(album.id) )
+    context = {
+        'form': form,
+        'albums': albums,
+    }
+
+    return render(request, 'albums.html', context)
+
+@login_required
+def user_album_photos(request, user, pk):
+    album = UserAlbum.objects.get(pk = pk)
+    photos = AlbumPhoto.objects.filter(album__id=album.id)
+    if request.method == 'GET':
+        form = PhotosAlbumForm()
+    elif request.method == 'POST':
+        form = PhotosAlbumForm(request.POST, request.FILES)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            image = AlbumPhoto( photo_path = form.cleaned_data['photo'],
+                                description=form.cleaned_data['photo_description'], album = album )
+            
+            image.save()
+            form = PhotosAlbumForm()
+
+    context = {
+        'form' : form,
+        'album' : album,
+        'photos' : photos,
+    }
+
+    return render(request, 'album_photos.html', context)
 
 def login_view(request):
     if request.method == 'GET':
@@ -71,6 +119,7 @@ def login_view(request):
             'form': login_form,
         }
         return render(request, 'login.html', context)
+
     if request.method == 'POST':
         login_form = UserLogin(request.POST)
         username = request.POST['username']

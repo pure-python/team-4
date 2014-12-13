@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+  <h1>Photo Albums</h1>
+
+  <p>Album: {{ album.name }} </p>
+  <p>Album descripion: {{ album.description }} </p>
+  
+  <form enctype="multipart/form-data" class="form-horizontal" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <div class="col-sm-9">
+        {{ form.as_p }} 
+      </div>
+      <div class="col-sm-3">
+        <button class="btn btn-primary btn-block" type="submit">
+          Post
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="albums">
+  {% for photo in photos %}
+    <div class="media">
+      {% if photo.photo_path %}
+      	<img src="{{ photo.photo_path.url }}">
+      {% endif %}
+	  <p> {{ photo.description }} </p>
+    </div>
+  {% endfor %}
+  
+  </div>
+
+{% endblock %}
