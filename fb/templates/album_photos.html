@@ -23,7 +23,7 @@
   {% for photo in photos %}
     <div class="media reset col-md-4">
       {% if photo.photo_path %}
-      	<img src="{{ photo.photo_path.url }}">
+      	<img src="{{ photo.photo_path.url }}" class="album-photo-big">
       {% endif %}
 	  <p class="photo-desc"> {{ photo.description }} </p>
     </div>
