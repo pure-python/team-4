@@ -12,7 +12,9 @@ class UserPost(models.Model):
 
     author = models.ForeignKey(User, related_name='posts')
     likers = models.ManyToManyField(User, related_name='liked_posts')
-
+    
+    photo = models.ImageField(upload_to='images/', blank=False, null=True)
+    
     def __unicode__(self):
         return '{} @ {}'.format(self.author, self.date_added)
 

@@ -9,7 +9,8 @@ from fb.models import UserProfile
 class UserPostForm(Form):
     text = CharField(widget=Textarea(
         attrs={'rows': 1, 'cols': 40, 'class': 'form-control','placeholder': "What's on your mind?"}))
-
+    
+    photo = ImageField(required = False)    
 
 class UserPostCommentForm(Form):
     text = CharField(widget=Textarea(

@@ -16,11 +16,19 @@ def index(request):
     posts = UserPost.objects.all()
     if request.method == 'GET':
         form = UserPostForm()
+
     elif request.method == 'POST':
-        form = UserPostForm(request.POST)
-        if form.is_valid():
+        form = UserPostForm(request.POST, request.FILES)
+        if form.is_valid():           
             text = form.cleaned_data['text']
-            post = UserPost(text=text, author=request.user)
+
+            if form.cleaned_data['photo']:
+                photo = form.cleaned_data['photo']
+                post = UserPost(text=text, author=request.user, photo=photo)
+
+            else:
+                post = UserPost(text=text, author=request.user)
+
             post.save()
 
     context = {
@@ -120,6 +128,7 @@ def edit_profile_view(request, user):
 
             profile.gender = form.cleaned_data['gender']
             profile.date_of_birth = form.cleaned_data['date_of_birth']
+            
             if form.cleaned_data['avatar']:
                 profile.avatar = form.cleaned_data['avatar']
             profile.save()

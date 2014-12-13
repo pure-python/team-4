@@ -4,11 +4,11 @@
   <h1>News feed</h1>
 
   
-  <form class="form-horizontal" method="POST">
+  <form enctype="multipart/form-data" class="form-horizontal" method="POST">
     {% csrf_token %}
     <div class="form-group">
       <div class="col-sm-9">
-        {{ form.text }}
+        {{ form.as_table }}
       </div>
       <div class="col-sm-3">
         <button class="btn btn-primary btn-block" type="submit">
@@ -29,6 +29,10 @@
           <a href="{% url 'post_details' post.pk %}">
           {{ post.text}}
           </a>
+          <br>
+          {% if post.photo %}
+            <img width="100px" src="{{ post.photo.url }}"/>
+          {% endif %}
         </h4>
         <a href="{% url 'profile' post.author.username %}">
             <b><small>{{ post.author.username }}</small></b></a>
