@@ -42,10 +42,10 @@ def index(request):
 @login_required
 def edit_post_view(request, pk):
     post = UserPost.objects.get(pk=pk)
-    #if not request.user == post.user:
-    #    return HttpResponseForbidden()
+    if not request.user == post.author:
+        return HttpResponseForbidden()
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
         data = {
             'text': post.text
         }
