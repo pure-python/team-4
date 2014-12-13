@@ -27,3 +27,13 @@ class UserProfileForm(Form):
     gender = ChoiceField(choices=UserProfile.GENDERS, required=False)
     date_of_birth = DateField(required=False)
     avatar = ImageField(required=False)
+
+class UserAlbumForm(Form):
+    name = CharField(max_length=30, required=True)
+    description = CharField(widget=Textarea(
+        attrs={'rows': 3, 'cols': 50, 'class': 'form-control','placeholder': "Describe album..."}))
+
+class PhotosAlbumForm(Form):
+    photo = ImageField(required=False)
+    photo_description =  CharField(widget=Textarea(
+         attrs={'rows': 1, 'cols': 30, 'class': 'form-control','placeholder': "Photo description..."}))

@@ -19,6 +19,29 @@ class UserPost(models.Model):
     class Meta:
         ordering = ['-date_added']
 
+class UserAlbum(models.Model):
+    name = models.TextField(max_length=30)
+    description = models.TextField()
+    user = models.ForeignKey(User)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return '{} @ {}'.format(self.user, self.date_added)
+
+    class Meta:
+        ordering = ['-date_added']
+
+class AlbumPhoto(models.Model):
+    photo_path = models.ImageField(upload_to='albums/', blank=False, null=True)
+    album = models.ForeignKey(UserAlbum)
+    description = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return '{} @ {}'.format(self.album, self.date_added)
+
+    class Meta:
+        ordering = ['-date_added']
 
 class UserPostComment(models.Model):
     text = models.TextField(max_length=100)

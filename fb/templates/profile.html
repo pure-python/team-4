@@ -20,6 +20,7 @@
 
   {% if user == profile.user %}
     <a href="{% url 'edit_profile' profile.user.username %}">Edit</a>
+    <a href="{% url 'albums' profile.user.username %}"> Albums </a>
   {% endif %}
 
 {% endblock %}
