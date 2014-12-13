@@ -192,7 +192,6 @@ def profile_view(request, user):
         'post_share': post_share,  
     }
 
-    
     return render(request, 'profile.html', context)
 
 

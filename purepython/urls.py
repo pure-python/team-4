@@ -9,7 +9,6 @@ from fb.views import (
     edit_profile_view, like_view, user_album, user_album_photos,
     edit_post_view, like_view_index, share_view, share_view_index
 
-
 )
 
 
@@ -20,7 +19,6 @@ urlpatterns = patterns(
     url(r'^$', index, name='index'),
     url(r'^post/(?P<pk>\d)/$', post_details, name='post_details'),
     url(r'^post/(?P<pk>\d)/like$', like_view, name='like'),
-
     url(r'^post/(?P<pk>\d)/edit$', edit_post_view, name='edit_post'),
 
     url(r'^post/(?P<pk>\d)/like_index$', like_view_index, name='like_index'),
