@@ -145,7 +145,8 @@ def logout_view(request):
 @login_required
 def profile_view(request, user):
     profile = UserProfile.objects.get(user__username=user)
-<<<<<<< HEAD
+    post_share = UserPost.objects.filter(shares__username = user)
+
     albums = UserAlbum.objects.filter(user__username=user)
     photos = {}
     for album in albums:
@@ -156,16 +157,8 @@ def profile_view(request, user):
         'profile': profile,
         'photos' : photos,
         'albums' : albums,
-=======
-    
-    post_share = UserPost.objects.filter(shares__username = user)
-    
-    context = {
-        'profile': profile,
         'post_share': post_share,
->>>>>>> 96021119b3289cd86494b781cdd358f982be871f
     }
-
     
     return render(request, 'profile.html', context)
 
