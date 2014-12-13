@@ -22,6 +22,7 @@
     <a href="{% url 'edit_profile' profile.user.username %}">Edit</a>
     <a href="{% url 'albums' profile.user.username %}"> Albums </a>
   {% endif %}
+  
   {%for post in post_share %}
       <h4>{{ post.text }}</h4>
        {% if post.photo %}

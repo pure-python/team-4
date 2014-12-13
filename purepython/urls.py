@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 
 from fb.views import (
     index, post_details, login_view, logout_view, profile_view,
-    edit_profile_view, like_view, like_view_index, share_view, share_view_index, user_album, user_album_photos
+    edit_profile_view, like_view, like_view_index, share_view, share_view_index, user_album, user_album_photos,
+    people_view
 )
 
 
@@ -25,5 +26,6 @@ urlpatterns = patterns(
     url(r'^profile/(?P<user>\w+)/albums$', user_album, name='albums'),
     url(r'^profile/(?P<user>\w+)/albums/(?P<pk>\d)$', user_album_photos, name='album_photos'), 
     url(r'^profile/(?P<user>\w+)/edit$', edit_profile_view, name='edit_profile'),
+    url(r'^people/(?P<user>\w+)/$', people_view, name='people'),
     url(r'^admin/', include(admin.site.urls)),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
